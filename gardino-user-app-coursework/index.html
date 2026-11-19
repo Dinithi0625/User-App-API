@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gardino | User Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="toastArea" class="toast-container position-fixed top-0 end-0 p-3"></div>
+
+  <main id="authView" class="auth-shell">
+    <section class="auth-brand">
+      <div class="brand-mark"><i class="bi bi-flower1"></i></div>
+      <p class="eyebrow">GARDINO · ACCOUNT SPACE</p>
+      <h1>A calmer way<br>to manage your account.</h1>
+      <p class="brand-copy">A clean user portal inspired by the original plant-care app, adapted for the User App REST API coursework.</p>
+      <div class="brand-leaf"><i class="bi bi-leaf"></i></div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <span class="small-label">WELCOME</span>
+          <span class="status-pill"><span></span> API-connected UI</span>
+        </div>
+        <div id="loginPanel">
+          <h2>Sign in</h2>
+          <p class="muted mb-4">Enter your account details to continue.</p>
+          <form id="loginForm">
+            <label class="form-label" for="loginEmail">Email address</label>
+            <input class="form-control form-control-lg mb-3" id="loginEmail" type="email" placeholder="you@example.com" required>
+            <label class="form-label" for="loginPassword">Password</label>
+            <input class="form-control form-control-lg mb-2" id="loginPassword" type="password" placeholder="Enter your password" required>
+            <div class="text-end mb-4"><button class="link-button" type="button" data-view="forgot">Forgot password?</button></div>
+            <button class="btn btn-garden w-100 btn-lg" type="submit"><span class="btn-text">Sign in</span><span class="spinner-border spinner-border-sm d-none"></span></button>
+          </form>
+          <p class="text-center mt-4 mb-0 muted">New here? <button class="link-button fw-semibold" data-view="register">Create an account</button></p>
+        </div>
+
+        <div id="registerPanel" class="d-none">
+          <h2>Create account</h2>
+          <p class="muted mb-4">Join Gardino with a new account.</p>
+          <form id="registerForm">
+            <label class="form-label" for="regName">Full name</label>
+            <input class="form-control mb-3" id="regName" required maxlength="100" placeholder="Your full name">
+            <label class="form-label" for="regEmail">Email address</label>
+            <input class="form-control mb-3" id="regEmail" type="email" required placeholder="you@example.com">
+            <label class="form-label" for="regMobile">Mobile number</label>
+            <input class="form-control mb-3" id="regMobile" type="tel" placeholder="Mobile number">
+            <label class="form-label" for="regPassword">Password</label>
+            <input class="form-control mb-3" id="regPassword" type="password" required minlength="6" placeholder="Create a password">
+            <button class="btn btn-garden w-100 btn-lg" type="submit"><span class="btn-text">Create account</span><span class="spinner-border spinner-border-sm d-none"></span></button>
+          </form>
+          <p class="text-center mt-4 mb-0 muted">Already registered? <button class="link-button fw-semibold" data-view="login">Sign in</button></p>
+        </div>
+
+        <div id="forgotPanel" class="d-none">
+          <h2>Reset password</h2>
+          <p class="muted mb-4">Request a one-time code for your registered email.</p>
+          <form id="sendOtpForm">
+            <label class="form-label" for="forgotEmail">Email address</label>
+            <input class="form-control form-control-lg mb-3" id="forgotEmail" type="email" required placeholder="you@example.com">
+            <button class="btn btn-garden w-100" type="submit">Send OTP</button>
+          </form>
+          <hr class="my-4">
+          <form id="verifyOtpForm">
+            <label class="form-label" for="otpCode">OTP code</label>
+            <input class="form-control mb-3" id="otpCode" required placeholder="Enter OTP">
+            <label class="form-label" for="newPassword">New password</label>
+            <input class="form-control mb-3" id="newPassword" type="password" required minlength="6" placeholder="New password">
+            <button class="btn btn-outline-garden w-100" type="submit">Verify OTP & reset password</button>
+          </form>
+          <p class="text-center mt-4 mb-0"><button class="link-button" data-view="login">Back to sign in</button></p>
+        </div>
+      </div>
+      <p class="footer-note">Coursework frontend · HTML · Bootstrap 5 · Vanilla JavaScript</p>
+    </section>
+  </main>
+
+  <main id="appView" class="app-shell d-none">
+    <aside class="sidebar">
+      <a class="sidebar-brand" href="#"><span class="brand-mark small-mark"><i class="bi bi-flower1"></i></span><span>gardino</span></a>
+      <div class="sidebar-caption">WORKSPACE</div>
+      <button class="nav-link active" data-page="overview"><i class="bi bi-grid-1x2"></i> Overview</button>
+      <button class="nav-link" data-page="users"><i class="bi bi-people"></i> User directory</button>
+      <div class="sidebar-caption mt-4">ACCOUNT</div>
+      <button class="nav-link" data-page="password"><i class="bi bi-shield-lock"></i> Change password</button>
+      <div class="sidebar-bottom">
+        <div class="mini-profile"><div class="avatar" id="sideAvatar">G</div><div class="overflow-hidden"><strong id="sideName">User</strong><small id="sideEmail">Signed in</small></div></div>
+        <button class="nav-link logout-link" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Sign out</button>
+      </div>
+    </aside>
+
+    <section class="main-area">
+      <header class="topbar">
+        <div><span class="eyebrow">USER MANAGEMENT</span><h1 id="pageHeading">Overview</h1></div>
+        <div class="topbar-right"><span class="date-chip"><i class="bi bi-calendar3"></i> <span id="todayText"></span></span><div class="avatar" id="topAvatar">G</div></div>
+      </header>
+
+      <div id="alertArea"></div>
+      <section id="overviewPage" class="page-section">
+        <div class="welcome-banner">
+          <div><span class="banner-kicker">YOUR SPACE, WELL ORGANISED</span><h2>Welcome back, <span id="welcomeName">there</span>.</h2><p>Manage your profile and explore the registered user directory.</p></div>
+          <div class="banner-icon"><i class="bi bi-person-vcard"></i></div>
+        </div>
+        <div class="row g-3 my-3">
+          <div class="col-md-6"><div class="stat-card"><div class="stat-icon"><i class="bi bi-people"></i></div><div><span>Total users</span><strong id="totalUsers">—</strong><small>Records returned by User App API</small></div></div></div>
+          <div class="col-md-6"><div class="stat-card"><div class="stat-icon soft"><i class="bi bi-person-check"></i></div><div><span>Signed-in account</span><strong class="stat-account" id="accountState">Active</strong><small id="accountEmail">Your account session</small></div></div></div>
+        </div>
+        <div class="content-card">
+          <div class="section-heading"><div><span class="eyebrow">QUICK ACCESS</span><h3>Account tools</h3></div></div>
+          <div class="row g-3">
+            <div class="col-md-6"><button class="quick-card w-100" data-page="users"><span class="quick-icon"><i class="bi bi-search"></i></span><span><strong>Browse users</strong><small>Search and view registered accounts</small></span><i class="bi bi-arrow-up-right ms-auto"></i></button></div>
+            <div class="col-md-6"><button class="quick-card w-100" data-page="password"><span class="quick-icon"><i class="bi bi-key"></i></span><span><strong>Update password</strong><small>Change your account password</small></span><i class="bi bi-arrow-up-right ms-auto"></i></button></div>
+          </div>
+        </div>
+        <div class="api-note"><i class="bi bi-info-circle"></i><div><strong>Connected to FreeProjectAPI</strong><p class="mb-0">This frontend calls the UserApp endpoints. Use sample/test account details only while working with a shared practice API.</p></div></div>
+      </section>
+
+      <section id="usersPage" class="page-section d-none">
+        <div class="content-card">
+          <div class="section-heading flex-wrap"><div><span class="eyebrow">DIRECTORY</span><h3>Registered users</h3><p class="muted mb-0">Search the user records returned by the API.</p></div><button class="btn btn-outline-garden" id="reloadUsers"><i class="bi bi-arrow-clockwise me-2"></i>Refresh</button></div>
+          <form id="searchForm" class="search-row"><div class="search-box"><i class="bi bi-search"></i><input id="searchText" placeholder="Search by name or email..." aria-label="Search users"></div><select id="pageSize" class="form-select page-size"><option value="5">5 per page</option><option value="10" selected>10 per page</option><option value="20">20 per page</option></select><button class="btn btn-garden" type="submit">Search</button></form>
+          <div id="usersLoading" class="loading-state d-none"><span class="spinner-border spinner-border-sm"></span> Loading users...</div>
+          <div class="table-responsive"><table class="table align-middle user-table"><thead><tr><th>USER</th><th>EMAIL</th><th>USER ID</th></tr></thead><tbody id="usersTableBody"><tr><td colspan="3" class="empty-state">Click refresh to load users.</td></tr></tbody></table></div>
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2"><small id="pageInfo" class="muted">No records loaded</small><div class="btn-group"><button class="btn btn-sm btn-outline-garden" id="prevPage">Previous</button><button class="btn btn-sm btn-outline-garden" id="nextPage">Next</button></div></div>
+        </div>
+      </section>
+
+      <section id="passwordPage" class="page-section d-none">
+        <div class="content-card password-card">
+          <span class="eyebrow">SECURITY</span><h3>Change your password</h3><p class="muted">Update the password for your signed-in account.</p>
+          <form id="changePasswordForm" class="mt-4">
+            <label class="form-label" for="customerId">Customer ID</label><input class="form-control mb-3" id="customerId" type="number" min="1" required placeholder="Enter customerId from your account/API response">
+            <label class="form-label" for="currentPassword">Current password</label><input class="form-control mb-3" id="currentPassword" type="password" required>
+            <label class="form-label" for="updatedPassword">New password</label><input class="form-control mb-3" id="updatedPassword" type="password" minlength="6" required>
+            <button class="btn btn-garden" type="submit">Update password</button>
+          </form>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
